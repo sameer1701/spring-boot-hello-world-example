@@ -1,0 +1,12 @@
+---
+- name : Deploy springboot on k8s
+  hosts: localhost
+  connection: local
+  user: vagrant
+
+  tasks:
+     - name: creating deployment
+       command: kubectl apply -f ../k8s/Deployment.yaml
+     - name: creating service
+       command: kubectl apply -f ../k8s/service-spring.yaml
+

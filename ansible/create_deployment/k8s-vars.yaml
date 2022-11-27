@@ -1,0 +1,9 @@
+---
+deployment_name : nginx-auto
+deployment_image : nginx
+deployment_replicas : 2
+deployment_label: "app: nginx"
+svc_name: nginx-svc
+svc_port: 8080
+svc_tar_port: 8084
+svc_type: NodePort

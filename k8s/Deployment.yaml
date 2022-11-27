@@ -1,0 +1,20 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: spring-boot
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: web-spring-boot
+  template:
+    metadata:
+      labels:
+        app: web-spring-boot
+    spec:
+      containers:
+        - name: spring-boot
+          image: sameergaikwad17/simple-spring-boot:jdk8
+          imagePullPolicy: Always

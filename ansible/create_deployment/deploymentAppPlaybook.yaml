@@ -1,0 +1,32 @@
+---
+- name: creating nginx object
+  hosts: localhost
+  connection: local
+  user: vagrant
+  vars_files:
+    - k8s-vars.yaml
+  tasks:
+    - name: create nginx deployment manifest
+      template:
+         src: ../templates/Deployment.tpl
+         dest: ansi-{{ deployment_name }}.yaml
+      register: fileCreate
+
+    - name: Create service for deployment
+      template:
+         src: ../templates/service.tpl
+         dest: ansi-{{ deployment_name }}-svc.yaml
+      register: svcFileCreate
+
+    - name: creting deployment
+      command: kubectl apply -f ansi-{{ deployment_name }}.yaml
+      when: fileCreate is succeeded
+      #k8s:
+      #   state: present
+      #   src: ansi-{{ deployment_name }}.yaml
+      #   when: fileCreate is succeeded
+
+    - name: Creating Service for deployment
+      command: kubectl apply -f ansi-{{ deployment_name }}-svc.yaml
+      when: svcFileCreate is succeeded
+
