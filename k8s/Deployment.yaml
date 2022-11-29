@@ -18,3 +18,12 @@ spec:
         - name: spring-boot
           image: sameergaikwad17/simple-spring-boot:jdk8
           imagePullPolicy: Always
+          ports:
+             - containerPort: 8080
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "500m"
+            limits:
+              memory: "500Mi"
+              cpu: "2000m"
