@@ -1,0 +1,28 @@
+for Cluter autoscaler use documentation provided by AWS
+https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html
+
+craete IAM polcy:
+
+aws iam create-policy \
+    --policy-name AmazonEKSClusterAutoscalerPolicy \
+    --policy-document file://cluster-autoscaler-policy.json
+
+tag your EC2:
+k8s.io/cluster-autoscaler/my-cluster	: owned
+k8s.io/cluster-autoscaler/enabled	: true
+
+Create service account:
+eksctl create iamserviceaccount \
+  --cluster=task \
+  --namespace=kube-system \
+  --name=cluster-autoscaler \
+  --attach-policy-arn=arn:aws:iam::<IAM_USER>:policy/AmazonEKSClusterAutoscalerPolicy \
+  --override-existing-serviceaccounts \
+  --approve
+  
+annotated cluster:
+  kubectl annotate serviceaccount cluster-autoscaler \
+  -n kube-system \
+  eks.amazonaws.com/role-arn=arn:aws:iam::<Account_ID>:role/AmazonEKSClusterAutoscalerRole
+
+Create Auto scalar group with scaling plan

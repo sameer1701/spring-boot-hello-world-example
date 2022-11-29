@@ -3,6 +3,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: spring-boot
+  namespace: ingress-nginx
 spec:
   maxReplicas: 50
   minReplicas: 1

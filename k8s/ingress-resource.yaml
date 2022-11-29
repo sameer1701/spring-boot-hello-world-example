@@ -2,16 +2,18 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: task-ingress
+  namespace: ingress-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
 spec:
-  ingressClassName: nginx
   rules:
-  - host: "*.amazonaws.com"
-    http:
+  - http:
       paths:
-      - path: /
+      - path: /task
         pathType: Prefix
         backend:
           service:
-            name: spring-boot
-            port:
+            name: spring-boot.ingress-nginx.svc.cluster.local
+            port: 
               number: 8080
