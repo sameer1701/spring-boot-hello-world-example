@@ -7,7 +7,7 @@ HPA allows us to scale pods when their resource utilisation goes over a threshol
 ## Requirements
 
 ### Code checkout
-Clone the repository for demo [codeCheckout](git@github.com:sameer1701/spring-boot-hello-world-example.git)
+Clone the repository for demo: [code_Checkout](https://github.com/sameer1701/spring-boot-hello-world-example/tree/master/k8s)
 
 ### A Cluster 
 
